@@ -2,7 +2,7 @@
 Utility functions for loading and processing images.
 """
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 def load_thumbnail(img_path, size):
@@ -17,6 +17,7 @@ def load_thumbnail(img_path, size):
         Image: Resized PIL Image object.
     """
     img = Image.open(img_path)
+    img = ImageOps.exif_transpose(img)
     img.thumbnail(size)
     return img
 
@@ -33,6 +34,7 @@ def load_full_image(img_path, max_size=None):
         Image: PIL Image object.
     """
     img = Image.open(img_path)
+    img = ImageOps.exif_transpose(img)
 
     if max_size:
         img.thumbnail(max_size)
